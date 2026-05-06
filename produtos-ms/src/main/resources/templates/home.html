@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{title.produtos}">Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<div class="max-w-5xl mx-auto p-4">
+    <div th:replace="~{fragments.html :: navbar('home')}"></div>
+
+    <div class="bg-white p-8 mt-4 shadow-md rounded-md">
+        <h1 class="text-3xl font-bold text-gray-800 mb-3" th:text="#{welcome.message}">Bem-vindo ao sistema de produtos</h1>
+        <p class="text-gray-600 mb-6" th:text="#{home.subtitle}">Consulte o catalogo e gerencie os produtos cadastrados.</p>
+        <a th:href="@{/produtos}" class="inline-block px-4 py-2 bg-gray-800 text-white rounded"
+           th:text="#{home.cta}">Ir para produtos</a>
+    </div>
+</div>
+</body>
+</html>

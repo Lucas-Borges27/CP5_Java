@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{title.vendas}">Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<div class="max-w-4xl mx-auto p-4">
+
+    <div th:replace="~{fragments.html :: navbar('clientes')}"></div>
+
+    <div class="bg-white p-4 mt-4 shadow-md rounded-md">
+        <main>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4" th:text="#{cliente.form.title}">Cadastro de cliente</h1>
+            <br>
+            <form th:action="@{/clientes/save}" method="post" th:object="${cliente}" class="space-y-4">
+                <div class="flex items-center">
+                    <label for="cpf" class="w-32 text-gray-700" th:text="#{cliente.form.cpf}">CPF</label>
+                    <input id="cpf" type="text" th:field="*{cpf}" th:placeholder="#{cliente.form.cpf.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="name" class="w-32 text-gray-700" th:text="#{cliente.form.name}">Nome</label>
+                    <input id="name" type="text" th:field="*{nome}" th:placeholder="#{cliente.form.name.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="cep" class="w-32 text-gray-700" th:text="#{cliente.form.cep}">CEP</label>
+                    <input id="cep" type="text" th:field="*{cep}" th:placeholder="#{cliente.form.cep.placeholder}"
+                           pattern="\d{8}" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="numero" class="w-32 text-gray-700" th:text="#{cliente.form.numero}">Número</label>
+                    <input id="numero" type="text" th:field="*{numero}"
+                           th:placeholder="#{cliente.form.numero.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="complement" class="w-32 text-gray-700"
+                           th:text="#{cliente.form.complement}">Complemento</label>
+                    <input id="complement" type="text" th:field="*{complemento}"
+                           th:placeholder="#{cliente.form.complement.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="phone" class="w-32 text-gray-700" th:text="#{cliente.form.phone}">Telefone</label>
+                    <input id="phone" type="text" th:field="*{telefone}"
+                           th:placeholder="#{cliente.form.phone.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded"
+                            th:text="#{cliente.form.save}">Salvar
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{title.produtos}">Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<div class="max-w-5xl mx-auto p-4">
+    <div th:replace="~{fragments.html :: navbar('produtos')}"></div>
+
+    <div class="bg-white p-6 mt-4 shadow-md rounded-md">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4" th:text="#{produto.form.title}">Cadastro de produto</h1>
+
+        <form th:action="@{/produtos/salvar}" method="post" th:object="${produto}" class="space-y-4">
+            <div class="flex flex-col">
+                <label for="codigo" class="text-sm font-medium text-gray-700 mb-1"
+                       th:text="#{produto.form.code}">Codigo</label>
+                <input id="codigo" type="text" th:field="*{codigo}" readonly
+                       class="border border-gray-300 p-2 rounded bg-gray-100">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="nome" class="text-sm font-medium text-gray-700 mb-1"
+                       th:text="#{produto.form.name}">Nome</label>
+                <input id="nome" type="text" th:field="*{nome}" required
+                       th:placeholder="#{produto.form.name.placeholder}"
+                       class="border border-gray-300 p-2 rounded">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="descricao" class="text-sm font-medium text-gray-700 mb-1"
+                       th:text="#{produto.form.description}">Descricao</label>
+                <textarea id="descricao" th:field="*{descricao}" required rows="4"
+                          th:placeholder="#{produto.form.description.placeholder}"
+                          class="border border-gray-300 p-2 rounded resize-none"></textarea>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2">
+                <div class="flex flex-col">
+                    <label for="preco" class="text-sm font-medium text-gray-700 mb-1"
+                           th:text="#{produto.form.price}">Preco</label>
+                    <input id="preco" type="number" th:field="*{preco}" required min="0" step="0.01"
+                           th:placeholder="#{produto.form.price.placeholder}"
+                           class="border border-gray-300 p-2 rounded">
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="categoria" class="text-sm font-medium text-gray-700 mb-1"
+                           th:text="#{produto.form.category}">Categoria</label>
+                    <input id="categoria" type="text" th:field="*{categoria}" required
+                           th:placeholder="#{produto.form.category.placeholder}"
+                           class="border border-gray-300 p-2 rounded">
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <a th:href="@{/produtos}" class="px-4 py-2 bg-gray-200 rounded" th:text="#{produto.form.back}">Voltar</a>
+                <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded"
+                        th:text="#{produto.form.save}">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

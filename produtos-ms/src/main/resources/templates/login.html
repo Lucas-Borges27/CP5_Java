@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{login.title}">Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-100 text-gray-900">
+<div class="mx-auto flex min-h-screen max-w-5xl items-center justify-center p-6">
+    <div class="grid w-full gap-6 md:grid-cols-[1.1fr_0.9fr]">
+        <section class="rounded-xl bg-slate-900 p-10 text-white shadow-lg">
+            <p class="mb-3 text-sm uppercase tracking-[0.3em] text-slate-300">produtos-ms</p>
+            <h1 class="mb-4 text-4xl font-bold" th:text="#{login.heading}">Acesse o sistema de produtos</h1>
+            <p class="max-w-xl text-slate-200" th:text="#{login.subtitle}">
+                Entre com sua conta do GitHub para visualizar os produtos e usar as funcoes disponiveis para o seu perfil.
+            </p>
+        </section>
+
+        <section class="rounded-xl bg-white p-8 shadow-lg">
+            <div th:if="${param.logout}" class="mb-4 rounded-md bg-green-50 px-4 py-3 text-sm text-green-700"
+                 th:text="#{login.loggedout}">
+                Voce saiu da aplicacao com sucesso.
+            </div>
+
+            <div th:if="${param.error}" class="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700"
+                 th:text="#{login.error}">
+                Login ou senha invalidos.
+            </div>
+
+            <div th:if="${param.cadastroSucesso}" class="mb-4 rounded-md bg-green-50 px-4 py-3 text-sm text-green-700"
+                 th:text="#{signup.success}">
+                Cadastro realizado com sucesso.
+            </div>
+
+            <div class="mb-4 rounded-md bg-slate-50 px-4 py-3 text-sm text-slate-700">
+                <strong th:text="#{login.test.title}">Usuario de teste:</strong>
+                <span th:text="#{login.test.credentials}">user@duckbiil.com / 123</span>
+            </div>
+
+            <form th:action="@{/login}" method="post" class="mb-4 space-y-3">
+                <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div>
+                    <label for="username" class="mb-1 block text-sm text-gray-700" th:text="#{auth.login}">Login</label>
+                    <input id="username" name="username" type="text"
+                           class="w-full rounded-md border border-gray-300 px-3 py-2"
+                           value="user@duckbiil.com"
+                           th:placeholder="#{auth.login.placeholder}">
+                </div>
+                <div>
+                    <label for="password" class="mb-1 block text-sm text-gray-700" th:text="#{auth.password}">Senha</label>
+                    <input id="password" name="password" type="password"
+                           class="w-full rounded-md border border-gray-300 px-3 py-2"
+                           autofocus
+                           th:placeholder="#{auth.password.placeholder}">
+                </div>
+                <button type="submit"
+                        class="block w-full rounded-md bg-slate-800 px-4 py-3 text-center text-white"
+                        th:text="#{login.local}">
+                    Entrar com login e senha
+                </button>
+            </form>
+
+            <div class="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-gray-400">
+                <span class="h-px flex-1 bg-gray-200"></span>
+                <span th:text="#{login.or}">ou</span>
+                <span class="h-px flex-1 bg-gray-200"></span>
+            </div>
+
+            <a th:href="@{/oauth2/authorization/github}"
+               class="mb-4 block rounded-md bg-gray-900 px-4 py-3 text-center text-white"
+               th:text="#{login.github}">
+                Entrar com GitHub
+            </a>
+
+            <a th:href="@{/cadastro}"
+               class="block rounded-md border border-gray-300 px-4 py-3 text-center text-gray-700"
+               th:text="#{login.signup}">
+                Cadastrar usuario local
+            </a>
+        </section>
+    </div>
+</div>
+</body>
+</html>

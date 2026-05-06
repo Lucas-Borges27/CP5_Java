@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div th:fragment="navbar(activePage)">
+    <script src="/js/navbar.js"></script>
+    <nav class="flex flex-col gap-3 bg-white p-4 shadow-md rounded-md md:flex-row md:items-center md:justify-between">
+        <div class="flex gap-3">
+            <a th:href="@{/}"
+               th:classappend="${activePage == 'home' ? 'bg-gray-400' : 'bg-gray-200'}"
+               th:text="#{navbar.home}"
+               class="px-4 py-2 rounded"></a>
+            <a th:href="@{/produtos}"
+               th:classappend="${activePage == 'produtos' ? 'bg-gray-400' : 'bg-gray-200'}"
+               th:text="#{navbar.produtos}"
+               class="px-4 py-2 rounded"></a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <div class="flex gap-2 text-sm">
+                <a href="?lang=pt-BR" class="px-2 py-1 bg-gray-200 rounded"
+                   th:text="#{navbar.lang.pt}">PT</a>
+                <a href="?lang=en" class="px-2 py-1 bg-gray-200 rounded"
+                   th:text="#{navbar.lang.en}">EN</a>
+            </div>
+
+            <div class="relative">
+                <button class="text-sm text-gray-700 focus:outline-none" id="userMenuButton" type="button">
+                    <span th:text="${username}">devUser</span>
+                    <img th:if="${urlAvatar != ''}" th:src="${urlAvatar}" th:alt="#{navbar.avatar.alt}"
+                         class="w-8 h-8 rounded-full inline-block ml-2">
+                </button>
+                <div id="userMenu"
+                     class="hidden absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-md shadow-lg">
+                    <form th:action="@{/logout}" method="post">
+                        <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button type="submit"
+                                class="block w-full px-4 py-2 text-left text-sm text-gray-200 hover:bg-gray-700"
+                                th:text="#{navbar.logout}">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

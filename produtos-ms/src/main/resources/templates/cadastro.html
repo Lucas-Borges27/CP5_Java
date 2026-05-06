@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{signup.title}">Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-100 text-gray-900">
+<div class="mx-auto flex min-h-screen max-w-4xl items-center justify-center p-6">
+    <section class="w-full rounded-xl bg-white p-8 shadow-lg">
+        <h1 class="mb-3 text-3xl font-bold text-gray-900" th:text="#{signup.heading}">Cadastro de usuario</h1>
+        <p class="mb-6 text-gray-600" th:text="#{signup.subtitle}">
+            Cadastre um usuario local com acesso basico ao sistema.
+        </p>
+
+        <div th:if="${param.erro}" class="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700"
+             th:text="#{signup.error}">
+            Nao foi possivel realizar o cadastro.
+        </div>
+
+        <div class="mb-6 rounded-lg bg-slate-50 p-5">
+            <h2 class="mb-2 text-lg font-semibold text-slate-900" th:text="#{signup.roles.title}">
+                Como funcionam as permissoes
+            </h2>
+            <p class="text-slate-700" th:text="#{signup.roles.body}">
+                Todo usuario autenticado pode acessar a home e listar produtos. Para criar, editar ou excluir produtos, o usuario precisa ter a role ROLE_PRODUTO.
+            </p>
+        </div>
+
+        <form th:action="@{/cadastro}" method="post" class="mb-4 space-y-3">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div>
+                <label for="login" class="mb-1 block text-sm text-gray-700" th:text="#{auth.login}">Login</label>
+                <input id="login" name="login" type="text"
+                       class="w-full rounded-md border border-gray-300 px-3 py-2"
+                       th:placeholder="#{auth.login.placeholder}">
+            </div>
+            <div>
+                <label for="senha" class="mb-1 block text-sm text-gray-700" th:text="#{auth.password}">Senha</label>
+                <input id="senha" name="senha" type="password"
+                       class="w-full rounded-md border border-gray-300 px-3 py-2"
+                       th:placeholder="#{auth.password.placeholder}">
+            </div>
+            <button type="submit"
+                    class="w-full rounded-md bg-slate-800 px-4 py-3 text-center text-white"
+                    th:text="#{signup.local}">
+                Criar usuario local
+            </button>
+        </form>
+
+        <div class="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-gray-400">
+            <span class="h-px flex-1 bg-gray-200"></span>
+            <span th:text="#{login.or}">ou</span>
+            <span class="h-px flex-1 bg-gray-200"></span>
+        </div>
+
+        <div class="flex flex-col gap-3 md:flex-row">
+            <a th:href="@{/oauth2/authorization/github}"
+               class="rounded-md bg-gray-900 px-4 py-3 text-center text-white"
+               th:text="#{signup.github}">
+                Entrar com GitHub e role completa
+            </a>
+            <a th:href="@{/login}"
+               class="rounded-md border border-gray-300 px-4 py-3 text-center text-gray-700"
+               th:text="#{signup.back}">
+                Voltar para login
+            </a>
+        </div>
+    </section>
+</div>
+</body>
+</html>

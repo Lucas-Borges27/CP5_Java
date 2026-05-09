@@ -2,6 +2,7 @@ package br.com.fiap.produtosms.configs;
 
 import br.com.fiap.produtosms.service.CustomOAuth2UserService;
 import br.com.fiap.produtosms.service.LocalUserDetailsService;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                         .requestMatchers("/login", "/cadastro", "/oauth2/authorization/**").permitAll()
                         .requestMatchers("/produtos/novo").hasRole("PRODUTO")
                         .requestMatchers("/produtos/detalhe/**").hasRole("PRODUTO")

@@ -74,7 +74,7 @@ services:
 
   # JMX Exporter: reads ActiveMQ JMX metrics and exposes them as Prometheus format
   jmx-exporter:
-    image: bitnami/jmx-exporter:latest
+    image: soldevelo/jmx-exporter:latest
     ports:
       - "5556:5556"
     volumes:
